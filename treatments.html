@@ -22,7 +22,7 @@
             --nav-bg: #222222; 
         }
 
-        body { background-color: var(--bg-light); color: var(--text-main); padding-top: 100px; }
+        body { background-color: var(--bg-light); color: var(--text-main); padding-top: 80px; }
 
         .treatment-card:hover .treatment-icon { transform: scale(1.1); color: var(--accent-brand); }
         .hover-scale { transition: all 0.3s ease-in-out; }
@@ -36,49 +36,67 @@
             width: 100%; height: 100%;
         }
         
-        /* Fixed Top Navigation Structure */
+        /* Unified Header Style based on provided image */
         .fixed-header {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 100;
+            background-color: #FFFFFF;
+            border-bottom: 1px solid #f1f5f9;
+            height: 80px;
+            display: flex;
+            align-items: center;
         }
 
-        .brand-row {
-            background-color: #FFFFFF;
-            padding: 10px 24px;
+        .nav-container {
+            max-w-7xl mx-auto;
+            width: 100%;
+            padding: 0 24px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-bottom: 1px solid #f1f5f9;
         }
 
-        /* Subtle Horizontal Top Navbar (PC) */
-        .horizontal-nav {
-            background-color: var(--nav-bg);
-            height: 48px;
-            display: flex;
+        .desktop-nav {
+            display: none;
             align-items: center;
-            justify-content: flex-end;
-            padding: 0 40px;
+            gap: 40px;
         }
 
-        .nav-item {
-            color: #94A3B8;
-            font-size: 12px;
-            font-weight: 500;
-            padding: 0 20px;
-            text-decoration: none;
+        @media (min-width: 1024px) {
+            .desktop-nav { display: flex; }
+        }
+
+        .nav-link {
+            color: #64748b;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover { color: var(--accent-brand); }
+        .nav-link.active { color: var(--accent-brand); }
+
+        .book-btn {
+            background-color: #1e293b;
+            color: white;
+            padding: 10px 24px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
             transition: all 0.3s ease;
-            text-transform: capitalize;
-            letter-spacing: 0.3px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
-        .nav-item:hover { color: #FFFFFF; }
-        .nav-item.active { color: #E67E22; }
+        .book-btn:hover { background-color: var(--accent-brand); transform: translateY(-1px); }
 
-        /* Sidebar Hamburger Style (Mobile) */
+        /* Mobile Sidebar */
         #mobile-menu { 
             position: fixed;
             top: 0;
@@ -86,30 +104,25 @@
             width: 280px;
             height: 100vh;
             background-color: white;
-            z-index: 100;
+            z-index: 200;
             transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: -10px 0 30px rgba(0,0,0,0.1);
             display: flex;
             flex-direction: column;
         }
         #mobile-menu.active { right: 0; }
+        
         .sidebar-overlay {
             position: fixed;
             inset: 0;
             background: rgba(0,0,0,0.5);
             backdrop-filter: blur(4px);
-            z-index: 90;
+            z-index: 150;
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.3s ease;
         }
         .sidebar-overlay.active { opacity: 1; pointer-events: auto; }
-
-        @media (max-width: 768px) {
-            body { padding-top: 70px; }
-            .horizontal-nav { display: none; }
-            .brand-row { padding: 8px 16px; }
-        }
     </style>
 </head>
 <body class="antialiased">
@@ -117,47 +130,47 @@
     <div id="sidebar-overlay" class="sidebar-overlay"></div>
 
     <header class="fixed-header">
-        <div class="brand-row">
+        <div class="nav-container">
             <a href="index.html" class="flex items-center gap-3">
-                <div class="w-9 h-9 rounded-full zoom-centre-logo shadow-sm">
+                <div class="w-10 h-10 rounded-full zoom-centre-logo shadow-sm">
                     <img src="https://github.com/AnujAhinave/DENTOMAX-DENTAIL-CLINIC/blob/main/ChatGPT%20Image%20Mar%2030%2C%202026%2C%2004_21_34%20PM.png?raw=true" alt="DentoMax Logo">
                 </div>
                 <div class="flex flex-col">
-                    <span class="font-extrabold text-lg tracking-tight uppercase text-slate-900 leading-none brand-font">
+                    <span class="font-extrabold text-xl tracking-tight uppercase text-slate-900 leading-none brand-font">
                         Dento<span class="text-[#3498db]">Max</span>
                     </span>
-                    <span class="text-[8px] font-bold tracking-[0.2em] text-slate-400 uppercase mt-1">Parel, Mumbai</span>
                 </div>
             </a>
+
+            <nav class="desktop-nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">Our Doctors</a>
+                <a href="treatments.html" class="nav-link active">Services</a>
+                <a href="results.html" class="nav-link">Patient Stories</a>
+            </nav>
+
             <div class="flex items-center gap-4">
-                <button id="menu-btn" class="lg:hidden text-slate-900 focus:outline-none p-2 bg-slate-50 rounded-md z-[110]">
+                <a href="index.html#booking" class="book-btn hidden sm:block">Book Visit</a>
+                <button id="menu-btn" class="lg:hidden text-slate-900 p-2">
                     <i class="fas fa-bars text-xl" id="menu-icon"></i>
                 </button>
             </div>
         </div>
 
-        <nav class="horizontal-nav">
-            <a href="index.html" class="nav-item">Home</a>
-            <a href="about.html" class="nav-item">Our Doctors</a>
-            <a href="treatments.html" class="nav-item active">Services</a>
-            <a href="results.html" class="nav-item">Stories</a>
-            <a href="index.html#booking" class="nav-item">Contact</a>
-        </nav>
-
         <div id="mobile-menu" class="p-6">
             <div class="flex flex-col h-full">
                 <div class="flex items-center justify-between mb-10 border-b pb-4">
-                    <span class="font-bold text-[#3498db] uppercase tracking-widest text-sm">Menu</span>
+                    <span class="font-bold text-[#3498db] uppercase tracking-widest text-sm">Navigation</span>
                 </div>
                 <div class="flex flex-col gap-2 text-sm font-bold uppercase tracking-widest text-slate-700">
-                    <a href="index.html" class="hover:bg-slate-50 p-4 rounded-xl flex items-center gap-4 transition-all">Home</a>
-                    <a href="about.html" class="hover:bg-slate-50 p-4 rounded-xl flex items-center gap-4 transition-all">Doctors</a>
-                    <a href="treatments.html" class="hover:bg-slate-50 p-4 rounded-xl flex items-center gap-4 transition-all">Services</a>
-                    <a href="results.html" class="hover:bg-slate-50 p-4 rounded-xl flex items-center gap-4 transition-all">Stories</a>
+                    <a href="index.html" class="hover:bg-slate-50 p-4 rounded-xl">Home</a>
+                    <a href="about.html" class="hover:bg-slate-50 p-4 rounded-xl">Doctors</a>
+                    <a href="treatments.html" class="bg-slate-50 text-[#3498db] p-4 rounded-xl">Services</a>
+                    <a href="results.html" class="hover:bg-slate-50 p-4 rounded-xl">Stories</a>
                 </div>
                 <div class="mt-auto pt-10 border-t">
-                    <a href="index.html#booking" class="bg-[#3498db] text-white p-4 rounded-xl flex items-center justify-center gap-3 font-bold uppercase tracking-widest text-xs shadow-lg">
-                        Book Now
+                    <a href="index.html#booking" class="bg-[#3498db] text-white p-4 rounded-xl flex items-center justify-center font-bold uppercase tracking-widest text-xs shadow-lg">
+                        Book Appointment
                     </a>
                 </div>
             </div>
@@ -193,7 +206,7 @@
                 <div class="bg-slate-50 p-5 rounded-xl text-xs space-y-3 border border-slate-100 mt-auto">
                     <div class="flex justify-between items-center border-b border-slate-200 pb-2 mb-2">
                         <span class="uppercase font-bold text-slate-500 text-[10px] tracking-widest">Consultation Fee</span>
-                        <span class="text-lg font-extrabold text-[#3498db]">₹200</span>
+                        <span class="text-lg font-extrabold text-[#3498db]">₹800</span>
                     </div>
                     <p class="flex justify-between uppercase font-bold text-slate-500"><span>Validity</span> <span class="text-slate-900">7 Days</span></p>
                     <p class="flex justify-between uppercase font-bold text-slate-500"><span>Includes</span> <span class="text-slate-900">Expert Exam</span></p>
